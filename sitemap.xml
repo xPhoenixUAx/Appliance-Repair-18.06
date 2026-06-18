@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://example.com/</loc></url>
+  <url><loc>https://example.com/services.html</loc></url>
+  <url><loc>https://example.com/washing-machine-repair.html</loc></url>
+  <url><loc>https://example.com/refrigerator-repair.html</loc></url>
+  <url><loc>https://example.com/oven-range-repair.html</loc></url>
+  <url><loc>https://example.com/dishwasher-repair.html</loc></url>
+  <url><loc>https://example.com/dryer-repair.html</loc></url>
+  <url><loc>https://example.com/small-appliance-repair.html</loc></url>
+  <url><loc>https://example.com/about.html</loc></url>
+  <url><loc>https://example.com/contact.html</loc></url>
+  <url><loc>https://example.com/privacy.html</loc></url>
+  <url><loc>https://example.com/terms.html</loc></url>
+  <url><loc>https://example.com/cookie-policy.html</loc></url>
+</urlset>

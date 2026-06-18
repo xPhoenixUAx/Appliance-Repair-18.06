@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Appliance repair logo">
+  <rect width="64" height="64" rx="14" fill="#1f9fe0"/>
+  <path d="M17 18h30a4 4 0 0 1 4 4v22a4 4 0 0 1-4 4H17a4 4 0 0 1-4-4V22a4 4 0 0 1 4-4Z" fill="#fff"/>
+  <path d="M18 25h28M18 31h28" stroke="#113b61" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="26" cy="40" r="5" fill="#1f9fe0"/>
+  <circle cx="39" cy="40" r="5" fill="#1f9fe0"/>
+  <path d="M46 14l5-5 4 4-5 5 3 3-4 4-10-10 4-4 3 3Z" fill="#ff252f"/>
+</svg>

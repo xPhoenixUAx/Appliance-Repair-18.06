@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact | Appliance Care Connect</title>
+  <meta name="description" content="Request appliance repair help for washers, dryers, refrigerators, ovens, ranges, dishwashers, and compact appliances.">
+  <link rel="icon" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/bundle.css?v=2026061803">
+</head>
+<body>
+  <header id="site-header"></header>
+  <main>
+    <section class="page-hero" style="--page-image:url('../img/generated/section-contact.webp')">
+      <div class="page-hero-inner">
+        <span class="eyebrow">Contact</span>
+        <h1>Request appliance repair help</h1>
+        <p>Send the appliance type, symptoms, and contact details. The success message, phone, email, website, and address are all hydrated from config.</p>
+      </div>
+    </section>
+    <section class="section muted">
+      <div class="container contact-grid">
+        <div class="contact-card reveal">
+          <div class="section-photo" style="--section-image:url('../img/generated/section-contact-detail.webp'); min-height: 190px; margin-bottom: 6px;" aria-hidden="true"></div>
+          <div class="contact-row"><i class="fa-solid fa-phone" aria-hidden="true"></i><div><strong data-phone-label></strong><br><a data-phone-link href="#" data-phone-text></a></div></div>
+          <div class="contact-row"><i class="fa-regular fa-envelope" aria-hidden="true"></i><div><strong>Email</strong><br><a data-email-link href="#" data-email-text></a></div></div>
+          <div class="contact-row"><i class="fa-solid fa-globe" aria-hidden="true"></i><div><strong>Website</strong><br><a data-website-link href="#" data-website></a></div></div>
+          <div class="contact-row"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><div><strong>Address</strong><br><span data-company-address></span></div></div>
+          <div class="contact-row"><i class="fa-regular fa-clock" aria-hidden="true"></i><div><strong>Hours</strong><br><span data-business-hours></span></div></div>
+        </div>
+        <form class="form-card reveal" id="lead-form">
+          <div class="form-grid">
+            <div><label for="name">Name</label><input id="name" name="name" autocomplete="name" required></div>
+            <div><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+            <div><label for="phone">Phone</label><input id="phone" name="phone" autocomplete="tel" required></div>
+            <div><label for="service-select">Service</label><select id="service-select" name="service" required></select></div>
+            <div class="field-full"><label for="message">Message / project details</label><textarea id="message" name="message" required placeholder="Tell us what stopped working, when it started, and whether there is leaking, heat, noise, or an error code."></textarea></div>
+          </div>
+          <p data-disclaimer-short></p>
+          <button class="btn btn-blue" type="submit">Send Request</button>
+          <div class="form-success" id="form-success" hidden></div>
+        </form>
+      </div>
+    </section>
+  </main>
+  <a class="floating-call" data-phone-link href="#" aria-label="Call appliance repair service"><i class="fa-solid fa-phone" aria-hidden="true"></i></a>
+  <div class="cookie-banner"><p>We use cookies to remember preferences and understand site activity. Read our <a href="cookie-policy.html">Cookie Policy</a>.</p><div class="cookie-actions"><button type="button" data-cookie-choice="accepted">Accept</button><button type="button" data-cookie-choice="declined">Decline</button></div></div>
+  <footer id="site-footer"></footer>
+  <script src="js/site-config.js?v=2026061803"></script>
+  <script src="js/services-data.js?v=2026061803"></script>
+  <script src="js/main.js?v=2026061803"></script>
+</body>
+</html>
