@@ -102,6 +102,7 @@
         <a href="index.html">Home</a>
         <button class="mobile-services" type="button" aria-expanded="false">Services <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button>
         <div class="mobile-service-list">
+          <a href="services.html"><i class="fa-solid fa-grid-2" aria-hidden="true"></i>All Services</a>
           ${services.map((item) => `<a href="${serviceUrl(item.slug)}">${icon(item.icon)}${item.title}</a>`).join("")}
         </div>
         <a href="about.html">About</a>
@@ -172,11 +173,17 @@
     const mount = $("[data-service-directory]");
     if (!mount) return;
     const groups = groupedServices();
+    const groupDescriptions = {
+      Laundry: "Washer and dryer issues often need quick sorting because leaks, heat problems, and vent restrictions can affect daily routines and safety.",
+      Kitchen: "Cooking, cooling, and cleanup appliances are grouped here so the request can start with the right symptoms, model details, and urgency.",
+      Compact: "Smaller appliances may need a practical repair-versus-replace review before time is spent on parts, diagnostics, or scheduling."
+    };
     mount.innerHTML = Object.entries(groups).map(([group, items]) => `
       <section class="directory-group reveal">
         <div>
           <span class="eyebrow">${group}</span>
           <h2>${group} Repair Services</h2>
+          <p>${groupDescriptions[group] || "Review the appliance type, common symptoms, and practical next steps before sending the request."}</p>
         </div>
         <div class="directory-links">
           ${items.map((service) => `
@@ -335,18 +342,33 @@
     const toggle = $(".menu-toggle");
     const panel = $(".mobile-panel");
     if (toggle && panel) {
-      toggle.addEventListener("click", () => {
-        const open = panel.classList.toggle("open");
+      const setMenuOpen = (open) => {
+        panel.classList.toggle("open", open);
+        document.body.classList.toggle("menu-open", open);
         toggle.setAttribute("aria-expanded", String(open));
+      };
+      toggle.addEventListener("click", () => {
+        setMenuOpen(!panel.classList.contains("open"));
+      });
+      $$("a", panel).forEach((link) => {
+        link.addEventListener("click", () => setMenuOpen(false));
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") setMenuOpen(false);
+      });
+      window.addEventListener("resize", () => {
+        if (window.matchMedia("(min-width: 981px)").matches) setMenuOpen(false);
       });
     }
 
     const mobileServices = $(".mobile-services");
     const serviceList = $(".mobile-service-list");
     if (mobileServices && serviceList) {
+      serviceList.style.height = "0px";
       mobileServices.addEventListener("click", () => {
         const open = serviceList.classList.toggle("open");
         mobileServices.setAttribute("aria-expanded", String(open));
+        serviceList.style.height = open ? `${serviceList.scrollHeight}px` : "0px";
       });
     }
 
@@ -517,14 +539,68 @@
 
     const form = $("#lead-form");
     if (form) {
+      let lastSubmitButton = null;
+      const getLeadModal = () => {
+        let modal = $("#lead-confirmation-modal");
+        if (modal) return modal;
+        modal = document.createElement("div");
+        modal.className = "lead-modal";
+        modal.id = "lead-confirmation-modal";
+        modal.setAttribute("role", "dialog");
+        modal.setAttribute("aria-modal", "true");
+        modal.setAttribute("aria-labelledby", "lead-modal-title");
+        modal.setAttribute("aria-hidden", "true");
+        modal.innerHTML = `
+          <div class="lead-modal-card" role="document">
+            <button class="lead-modal-close" type="button" aria-label="Close confirmation"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            <span class="lead-modal-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+            <span class="eyebrow">Request received</span>
+            <h2 id="lead-modal-title">Thank you for reaching out.</h2>
+            <p data-lead-modal-message></p>
+            <div class="lead-modal-actions">
+              <button class="btn btn-red" type="button" data-lead-modal-ok>Done</button>
+              <a class="lead-modal-link" href="services.html">Review services</a>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        return modal;
+      };
+      const closeLeadModal = () => {
+        const modal = $("#lead-confirmation-modal");
+        if (!modal) return;
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("modal-open");
+        if (lastSubmitButton) lastSubmitButton.focus();
+      };
+      const openLeadModal = () => {
+        const modal = getLeadModal();
+        const message = $("[data-lead-modal-message]", modal);
+        if (message) message.textContent = config.formSuccess;
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-open");
+        const closeButton = $(".lead-modal-close", modal);
+        closeButton && closeButton.focus();
+      };
       form.addEventListener("submit", (event) => {
         event.preventDefault();
+        lastSubmitButton = form.querySelector('[type="submit"]');
         const message = $("#form-success");
         if (message) {
-          message.textContent = config.formSuccess.replace(config.companyName, config.companyName).replace(config.email, config.email);
-          message.hidden = false;
+          message.hidden = true;
         }
         form.reset();
+        openLeadModal();
+      });
+      document.addEventListener("click", (event) => {
+        const modal = $("#lead-confirmation-modal.open");
+        if (!modal) return;
+        if (event.target === modal || event.target.closest("[data-lead-modal-ok], .lead-modal-close")) closeLeadModal();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeLeadModal();
       });
     }
   }
