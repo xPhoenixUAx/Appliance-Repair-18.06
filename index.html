@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <link rel="stylesheet" href="css/bundle.css?v=2026061803">
+  <link rel="stylesheet" href="css/bundle.css?v=2026061813">
 </head>
 <body>
   <header id="site-header"></header>
@@ -40,7 +40,7 @@
           <span class="eyebrow">Full-cycle appliance help</span>
           <h2>Repair requests routed by appliance, symptom, and urgency</h2>
         </div>
-        <div class="section-photo reveal" style="--section-image:url('../img/generated/section-services-overview.webp')" aria-hidden="true"></div>
+        <div class="section-photo reveal" style="--section-image:url('../img/generated/section-services-overview.webp'); --section-position:center center" aria-hidden="true"></div>
         <div class="services-grid" data-services-grid></div>
       </div>
     </section>
@@ -52,16 +52,57 @@
     <section class="testimonial-zone">
       <div class="container">
         <div class="testimonial-photo reveal" aria-hidden="true"></div>
-        <div class="testimonial-card reveal">
-          <i class="fa-solid fa-quote-left" aria-hidden="true"></i>
-          <blockquote>Our coordinator asked clear questions, matched the issue to the right appliance category, and helped us understand what the technician would inspect before any work started.</blockquote>
-          <strong>Marina P.</strong>
-        </div>
-        <div class="avatar-dots" aria-label="Testimonial controls">
-          <button class="active" type="button">MP</button>
-          <button type="button">DR</button>
-          <button type="button">AK</button>
-          <button type="button">LS</button>
+        <div class="testimonial-slider reveal" data-testimonial-slider>
+          <div class="testimonial-viewport">
+            <div class="testimonial-track">
+              <article class="testimonial-card">
+                <i class="fa-solid fa-quote-left" aria-hidden="true"></i>
+                <blockquote>Our coordinator asked clear questions, matched the issue to the right appliance category, and helped us understand what the technician would inspect before any work started.</blockquote>
+                <strong>Marina P.</strong>
+              </article>
+              <article class="testimonial-card">
+                <i class="fa-solid fa-quote-left" aria-hidden="true"></i>
+                <blockquote>The refrigerator request was handled quickly. I liked that the form asked for temperatures, noises, and ice maker symptoms before anyone called.</blockquote>
+                <strong>David R.</strong>
+              </article>
+              <article class="testimonial-card">
+                <i class="fa-solid fa-quote-left" aria-hidden="true"></i>
+                <blockquote>Our washer was leaking and I was not sure what details mattered. The intake process made it easy to explain the problem without guessing the repair.</blockquote>
+                <strong>Ana K.</strong>
+              </article>
+              <article class="testimonial-card">
+                <i class="fa-solid fa-quote-left" aria-hidden="true"></i>
+                <blockquote>The dryer safety notes were useful. We stopped running it after a hot smell and got connected with someone who checked the vent and heat system.</blockquote>
+                <strong>Lena S.</strong>
+              </article>
+              <article class="testimonial-card">
+                <i class="fa-solid fa-quote-left" aria-hidden="true"></i>
+                <blockquote>I needed help describing an oven issue. The service page explained bake, broil, igniter, and control symptoms in plain language.</blockquote>
+                <strong>Marcus T.</strong>
+              </article>
+              <article class="testimonial-card">
+                <i class="fa-solid fa-quote-left" aria-hidden="true"></i>
+                <blockquote>The dishwasher page helped me understand why standing water could be a drain, pump, filter, or installation issue. The request felt much more specific.</blockquote>
+                <strong>Nora B.</strong>
+              </article>
+              <article class="testimonial-card">
+                <i class="fa-solid fa-quote-left" aria-hidden="true"></i>
+                <blockquote>Everything felt organized: appliance type, urgency, model details, and contact preference. No long back-and-forth just to explain the basics.</blockquote>
+                <strong>Chris W.</strong>
+              </article>
+              <article class="testimonial-card">
+                <i class="fa-solid fa-quote-left" aria-hidden="true"></i>
+                <blockquote>We had a compact appliance question and appreciated the honest repair-versus-replace guidance before scheduling anything.</blockquote>
+                <strong>Priya M.</strong>
+              </article>
+              <article class="testimonial-card">
+                <i class="fa-solid fa-quote-left" aria-hidden="true"></i>
+                <blockquote>The site made the whole repair request feel less chaotic. I knew what to send, what to ask, and what credentials to verify.</blockquote>
+                <strong>Evan J.</strong>
+              </article>
+            </div>
+          </div>
+          <div class="testimonial-dots" aria-label="Testimonial controls"></div>
         </div>
       </div>
     </section>
@@ -96,11 +137,25 @@
           <span class="eyebrow">How it works</span>
           <h2>From broken appliance to repair plan</h2>
         </div>
-        <div class="section-photo reveal" style="--section-image:url('../img/generated/section-process.webp')" aria-hidden="true"></div>
+        <div class="section-photo reveal" style="--section-image:url('../img/generated/section-process.webp'); --section-position:center 16%" aria-hidden="true"></div>
         <div class="process-grid">
           <div class="process-card reveal"><span>1</span><h3>Tell us the symptom</h3><p>Start with the appliance, what changed, and how urgent the issue is.</p></div>
           <div class="process-card reveal"><span>2</span><h3>We route the request</h3><p>Your details help match the job to an independent provider who handles that appliance type.</p></div>
           <div class="process-card reveal"><span>3</span><h3>Review the options</h3><p>The provider discusses inspection, parts, repair scope, and next steps before work continues.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-cta-banner">
+      <div class="container home-cta-inner reveal">
+        <div>
+          <span class="eyebrow">Need a repair plan today?</span>
+          <h2>Send the appliance details and get matched with the right next step.</h2>
+          <p>Tell us what stopped working, what you have already noticed, and how soon you need help. We will route the request by appliance type, urgency, and service scope.</p>
+        </div>
+        <div class="home-cta-actions">
+          <a class="btn btn-red" href="contact.html" data-cta-primary>Request Service</a>
+          <a class="home-cta-phone" data-phone-link href="#"><i class="fa-solid fa-phone" aria-hidden="true"></i><span data-phone-text></span></a>
         </div>
       </div>
     </section>
@@ -112,8 +167,8 @@
     <div class="cookie-actions"><button type="button" data-cookie-choice="accepted">Accept</button><button type="button" data-cookie-choice="declined">Decline</button></div>
   </div>
   <footer id="site-footer"></footer>
-  <script src="js/site-config.js?v=2026061803"></script>
-  <script src="js/services-data.js?v=2026061803"></script>
-  <script src="js/main.js?v=2026061803"></script>
+  <script src="js/site-config.js?v=2026061813"></script>
+  <script src="js/services-data.js?v=2026061813"></script>
+  <script src="js/main.js?v=2026061813"></script>
 </body>
 </html>

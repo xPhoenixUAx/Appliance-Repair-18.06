@@ -130,7 +130,7 @@
         </div>
         <div>
           <h3>Contact</h3>
-          <ul>
+          <ul class="footer-contact-list">
             <li><a data-phone-link href="#"><i class="fa-solid fa-phone" aria-hidden="true"></i><span data-phone-text></span></a></li>
             <li><a data-email-link href="#"><i class="fa-regular fa-envelope" aria-hidden="true"></i><span data-email-text></span></a></li>
             <li><a data-website-link href="#"><i class="fa-solid fa-globe" aria-hidden="true"></i><span data-website></span></a></li>
@@ -259,7 +259,7 @@
             <span class="eyebrow">Service flow</span>
             <h2>How the repair request moves forward</h2>
           </div>
-          <div class="process-grid">${service.process.map((step, index) => `<div class="process-card reveal"><span>${index + 1}</span><p>${step}</p></div>`).join("")}</div>
+          <div class="service-process-grid">${service.process.map((step, index) => `<div class="service-process-step reveal"><span>${String(index + 1).padStart(2, "0")}</span><p>${step}</p></div>`).join("")}</div>
         </div>
       </section>
       <section class="section">
@@ -301,7 +301,7 @@
             <span class="eyebrow">Questions</span>
             <h2>${service.title} FAQ</h2>
           </div>
-          ${service.faqs.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join("")}
+          ${service.faqs.map(([q, a]) => `<details><summary>${q}</summary><div class="accordion-panel"><p>${a}</p></div></details>`).join("")}
         </div>
       </section>
       <section class="service-cta-band">
@@ -350,12 +350,147 @@
       });
     }
 
-    $$(".faq-accordion details, .faq-list details").forEach((details) => {
-      details.addEventListener("toggle", () => {
-        if (!details.open) return;
-        $$(".faq-accordion details, .faq-list details").forEach((other) => {
-          if (other !== details) other.open = false;
+    const testimonial = $("[data-testimonial-slider]");
+    if (testimonial) {
+      const track = $(".testimonial-track", testimonial);
+      const dotsMount = $(".testimonial-dots", testimonial);
+      const originalSlides = $$(".testimonial-card", track);
+      let index = 1;
+      let timer = null;
+      const speed = 5200;
+
+      if (track && dotsMount && originalSlides.length > 1) {
+        const firstClone = originalSlides[0].cloneNode(true);
+        const lastClone = originalSlides[originalSlides.length - 1].cloneNode(true);
+        firstClone.setAttribute("aria-hidden", "true");
+        lastClone.setAttribute("aria-hidden", "true");
+        track.prepend(lastClone);
+        track.append(firstClone);
+        const slides = $$(".testimonial-card", track);
+
+        const setTransform = (withTransition = true) => {
+          track.style.transition = withTransition ? "transform 0.58s ease" : "none";
+          track.style.transform = `translateX(-${index * 100}%)`;
+        };
+        const activeDot = () => {
+          const realIndex = (index - 1 + originalSlides.length) % originalSlides.length;
+          $$("button", dotsMount).forEach((button, dotIndex) => {
+            button.classList.toggle("active", dotIndex === realIndex);
+            button.setAttribute("aria-selected", String(dotIndex === realIndex));
+          });
+        };
+        const goTo = (nextIndex) => {
+          index = nextIndex;
+          setTransform(true);
+          activeDot();
+        };
+        const next = () => goTo(index + 1);
+        const stop = () => {
+          if (timer) window.clearInterval(timer);
+          timer = null;
+        };
+        const start = () => {
+          stop();
+          timer = window.setInterval(next, speed);
+        };
+
+        originalSlides.forEach((_, dotIndex) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.setAttribute("aria-label", `Show testimonial ${dotIndex + 1}`);
+          button.setAttribute("role", "tab");
+          button.addEventListener("click", () => {
+            goTo(dotIndex + 1);
+            start();
+          });
+          dotsMount.appendChild(button);
         });
+
+        track.addEventListener("transitionend", () => {
+          if (index === slides.length - 1) {
+            index = 1;
+            setTransform(false);
+          } else if (index === 0) {
+            index = originalSlides.length;
+            setTransform(false);
+          }
+          activeDot();
+        });
+
+        testimonial.addEventListener("mouseenter", stop);
+        testimonial.addEventListener("mouseleave", start);
+        testimonial.addEventListener("focusin", stop);
+        testimonial.addEventListener("focusout", start);
+        setTransform(false);
+        activeDot();
+        start();
+      }
+    }
+
+    const accordionItems = $$(".faq-accordion details, .faq-list details");
+    const closeAccordion = (details) => {
+      const panel = $(".accordion-panel", details);
+      const summary = $("summary", details);
+      if (!panel || !details.open) return;
+      panel.style.height = `${panel.scrollHeight}px`;
+      details.classList.remove("is-open");
+      summary && summary.setAttribute("aria-expanded", "false");
+      requestAnimationFrame(() => {
+        panel.style.height = "0px";
+        panel.style.opacity = "0";
+      });
+      window.setTimeout(() => {
+        if (!details.classList.contains("is-open")) details.open = false;
+      }, 320);
+    };
+    const openAccordion = (details) => {
+      const panel = $(".accordion-panel", details);
+      const summary = $("summary", details);
+      if (!panel) return;
+      accordionItems.forEach((other) => {
+        if (other !== details) closeAccordion(other);
+      });
+      details.open = true;
+      details.classList.add("is-open");
+      summary && summary.setAttribute("aria-expanded", "true");
+      panel.style.height = "0px";
+      panel.style.opacity = "0";
+      requestAnimationFrame(() => {
+        panel.style.height = `${panel.scrollHeight}px`;
+        panel.style.opacity = "1";
+      });
+      window.setTimeout(() => {
+        if (details.classList.contains("is-open")) panel.style.height = "auto";
+      }, 320);
+    };
+    accordionItems.forEach((details) => {
+      const summary = $("summary", details);
+      let panel = $(".accordion-panel", details);
+      if (!panel) {
+        panel = document.createElement("div");
+        panel.className = "accordion-panel";
+        Array.from(details.childNodes).forEach((node) => {
+          if (node !== summary) panel.appendChild(node);
+        });
+        details.appendChild(panel);
+      }
+      details.classList.add("smooth-accordion");
+      summary && summary.setAttribute("aria-expanded", details.open ? "true" : "false");
+      if (details.open) {
+        details.classList.add("is-open");
+        panel.style.height = "auto";
+        panel.style.opacity = "1";
+      } else {
+        panel.style.height = "0px";
+        panel.style.opacity = "0";
+      }
+      summary && summary.addEventListener("click", (event) => {
+        event.preventDefault();
+        if (details.open && details.classList.contains("is-open")) {
+          closeAccordion(details);
+        } else {
+          openAccordion(details);
+        }
       });
     });
 
